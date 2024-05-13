@@ -14,7 +14,12 @@ function App() {
   const [errorUpdatingPlaces, setErrorUpdatingPlaces] = useState();
 
   const [modalIsOpen, setModalIsOpen] = useState(false);
-  const { isFetching, error, fetchedData } = useFetch(fetchUserPlaces, []);
+  const {
+    isFetching,
+    error,
+    fetchedData: userPlaces,
+    setFetchedData: setUserPlaces,
+  } = useFetch(fetchUserPlaces, []);
   function handleStartRemovePlace(place) {
     setModalIsOpen(true);
     selectedPlace.current = place;
@@ -66,7 +71,7 @@ function App() {
 
       setModalIsOpen(false);
     },
-    [userPlaces]
+    [userPlaces, setUserPlaces]
   );
 
   function handleError() {
@@ -104,7 +109,7 @@ function App() {
           <Places
             title="I'd like to visit ..."
             fallbackText="Select the places you would like to visit below."
-            places={fetchedData}
+            places={userPlaces}
             loadingText="Fetching your places..."
             isLoading={isFetching}
             onSelectPlace={handleStartRemovePlace}

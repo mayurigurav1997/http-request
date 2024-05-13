@@ -4,6 +4,7 @@ function useFetch(fetchFn, initialValue) {
   const [isFetching, setIsFetching] = useState(false);
   const [error, setError] = useState();
   const [fetchedData, setFetchedData] = useState(initialValue);
+
   useEffect(() => {
     async function fetchData() {
       setIsFetching(true);
@@ -17,6 +18,6 @@ function useFetch(fetchFn, initialValue) {
     }
     fetchData();
   }, [fetchFn]);
-  return { isFetching, error, fetchedData };
+  return { isFetching, error, fetchedData, setFetchedData };
 }
 export default useFetch;
